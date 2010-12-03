@@ -43,9 +43,7 @@ namespace spaghetti.util {
         /// <param name="encoding"></param>
         /// <returns></returns>
         public static string decode64(string encoded_text, Encoding encoding) {
-            byte[] bs = Convert.FromBase64String( encoded_text );
-
-            return encoding.GetString( bs, 0, bs.Length );
+            return encoding.GetString( Convert.FromBase64String( encoded_text ) );
         }
     }
 
