@@ -1,0 +1,14 @@
+*.*.*~
+*.sh
+*.log
+*.txt
+*.exe
+*.pdb
+*.dll
+*.bat
+*.application
+*.conf
+*.cache
+*.suo
+*.user
+*.rb
