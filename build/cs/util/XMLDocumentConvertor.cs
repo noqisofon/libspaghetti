@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 
 
@@ -10,6 +9,7 @@ namespace spaghetti.util {
     /// <summary>
     /// XML の文字列表現から、XmlDocument オブジェクトを作成します。
     /// </summary>
+    [Obsolete( "XMLDocumentConvertor クラスは今後サポートされません。parsers 名前空間のクラスを使用してください。" )]
     public class XMLDocumentConvertor {
         /// <summary>
         ///
@@ -28,7 +28,7 @@ namespace spaghetti.util {
 
 
         /// <summary>
-        ///
+        /// XML 文字列を論理的 XML 構造に変換して返します。
         /// </summary>
         /// <param name="xml_text_representation"></param>
         /// <returns></returns>

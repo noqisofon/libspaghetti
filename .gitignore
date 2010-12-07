@@ -12,4 +12,5 @@
 *.suo
 *.user
 *.rb
+*.ver
 *.xml

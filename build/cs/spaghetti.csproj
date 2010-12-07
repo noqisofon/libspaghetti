@@ -34,6 +34,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="parsers\DocumentBuilder.cs" />
+    <Compile Include="parsers\DocumentBuilderFactory.cs" />
+    <Compile Include="parsers\XmlDocumentBuilder.cs" />
+    <Compile Include="parsers\XmlDocumentBuilderFactory.cs" />
+    <Compile Include="parsers\XmlDocumentParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="util\Base64.cs" />
     <Compile Include="util\pair.cs" />

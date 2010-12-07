@@ -5,10 +5,10 @@ namespace spaghetti.util {
 
 
     /// <summary>
-    /// 2 つの異なる型を持てる構造体です。
+    /// 2 つの異なる型を持つことができる構造体です。
     /// </summary>
-    /// <typeparam name="T">1 つ目の型。</typeparam>
-    /// <typeparam name="Y">2 つ目の型。</typeparam>
+    /// <typeparam name="T">first プロパティの型。</typeparam>
+    /// <typeparam name="Y">second プロパティの型。</typeparam>
     [Serializable]
     public struct pair<T, Y> : ICloneable, IEquatable<pair<T, Y>> {
         /// <summary>
