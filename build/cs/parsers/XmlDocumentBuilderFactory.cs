@@ -7,9 +7,9 @@ namespace spaghetti.parsers {
 
 
     /// <summary>
-    ///
+    /// DocumentBuilderFactory ÇÃ XmlDocument ópé¿ëïÇ≈Ç∑ÅB
     /// </summary>
-    class XmlDocumentBuilderFactory : DocumentBuilderFactory {
+    internal class XmlDocumentBuilderFactory : DocumentBuilderFactory {
         /// <summary>
         /// 
         /// </summary>

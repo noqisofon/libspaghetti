@@ -3,10 +3,10 @@
  * @breif   C++ 風のキャストを C 風のキャストとスイッチできるエクステンション
  */
 #if !defined(__CSTYLE_CAST)
-/**
- * @def __CSTYLE_CAST(_type_, _expression_)
- * C スタイルのキャストを行う関数型プリプロセッサ。
- */
+////////////////////////////////////////////////////////////////////////////////
+// 
+// C スタイルのキャストを行う関数型プリプロセッサ。
+// 
 #   define     __CSTYLE_CAST(_type_, _expression_)      ((_type_)_expression_)
 
 
@@ -16,10 +16,6 @@
  * _SPAG_USE_CPPSTYLE_CAST を定義します。
  */
 #       if !defined(_SPAG_NON_STANDALONE_MODULE)
-/**
- * @def _SPAG_USE_CPPSTYLE_CAST
- * C++ スタイルのキャストを行います。
- */
 #           define          _SPAG_USE_CPPSTYLE_CAST
 #       else
 /* 

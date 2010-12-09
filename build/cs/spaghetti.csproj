@@ -41,6 +41,7 @@
     <Compile Include="parsers\XmlDocumentParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="util\Base64.cs" />
+    <Compile Include="util\Logger.cs" />
     <Compile Include="util\pair.cs" />
     <Compile Include="util\XMLDocumentConvertor.cs" />
   </ItemGroup>

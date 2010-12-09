@@ -11,7 +11,7 @@ namespace spaghetti.parsers {
     /// <summary>
     ///
     /// </summary>
-    public class XmlDocumentBuilder : DocumentBuilder {
+    internal class XmlDocumentBuilder : DocumentBuilder {
         /// <summary>
         /// 
         /// </summary>
@@ -38,6 +38,9 @@ namespace spaghetti.parsers {
         /// <param name="source"></param>
         /// <returns></returns>
         public override XmlDocument parse(TextReader source) {
+            if ( source == null )
+                throw new ArgumentNullException( "source" );
+
             XmlReader reader = XmlReader.Create( new XmlTextReader( source, this.context_.NameTable ),
                                                  this.settings_
                                                  );
