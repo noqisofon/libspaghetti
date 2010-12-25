@@ -7,8 +7,8 @@
     <ProjectGuid>{12C9BA10-2801-4E1F-BDA6-04E5083E7C06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>spahetti.util</RootNamespace>
-    <AssemblyName>spahetti.util</AssemblyName>
+    <RootNamespace>spaghetti</RootNamespace>
+    <AssemblyName>spaghetti</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +34,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="extraio\channels\DatagramChannel.cs" />
+    <Compile Include="extraio\channels\providers\SelectorProvider.cs" />
+    <Compile Include="net\DatagramPacket.cs" />
+    <Compile Include="net\DatagramSocket.cs" />
+    <Compile Include="net\MulticastSocket.cs" />
     <Compile Include="parsers\DocumentBuilder.cs" />
     <Compile Include="parsers\DocumentBuilderFactory.cs" />
     <Compile Include="parsers\XmlDocumentBuilder.cs" />
