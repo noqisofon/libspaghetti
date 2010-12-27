@@ -51,6 +51,15 @@ namespace spaghetti.net {
         /// </summary>
         /// <param name="point"></param>
         public void bind(IPEndPoint point) {
+            this.implementor_.bind( point );
+        }
+
+
+        /// <summary>
+        /// このデーダグラムソケットを閉じます。
+        /// </summary>
+        public void close() {
+            this.implementor_.close();
         }
 
 
@@ -60,12 +69,14 @@ namespace spaghetti.net {
         /// <param name="address"></param>
         /// <param name="port"></param>
         public void connect(IPAddress address, int port) {
+            this.implementor_.connect( address, port );
         }
         /// <summary>
         /// このソケットをリモートソケットアドレスに接続します。
         /// </summary>
         /// <param name="point"></param>
         public void connect(IPEndPoint point) {
+            this.implementor_.connect( point );
         }
 
 
@@ -73,6 +84,7 @@ namespace spaghetti.net {
         /// ソケットを切断します。
         /// </summary>
         public void disconnect() {
+            this.implementor_.disconnect();
         }
 
 
@@ -81,8 +93,10 @@ namespace spaghetti.net {
         /// </summary>
         public bool broadband {
             get {
+                return this.implementor_.broadband;
             }
             set {
+                this.implementor_.broadband = value;
             }
         }
 
@@ -93,7 +107,7 @@ namespace spaghetti.net {
         /// <remarks>存在しない場合、null を返します。</remarks>
         public DatagramChannel channel {
             get {
-
+                return null;
             }
         }
 
@@ -103,7 +117,7 @@ namespace spaghetti.net {
         /// </summary>
         public IPAddress remoteAddress {
             get {
-
+                return this.implementor_.remoteEndPoint.Address;
             }
         }
 
@@ -113,6 +127,7 @@ namespace spaghetti.net {
         /// </summary>
         public IPAddress localAddress {
             get {
+                return this.implementor_.localEndPoint.Address;
             }
         }
 
@@ -122,6 +137,7 @@ namespace spaghetti.net {
         /// </summary>
         public IPEndPoint localEndPoint {
             get {
+                return this.implementor_.localEndPoint;
             }
         }
 
@@ -131,8 +147,10 @@ namespace spaghetti.net {
         /// </summary>
         public int port {
             get {
+                return this.port;
             }
             set {
+                this.port = value;
             }
         }
 
@@ -142,8 +160,10 @@ namespace spaghetti.net {
         /// </summary>
         public int receiveBufferSize {
             get {
+                return this.implementor_.receiveBufferSize;
             }
             set {
+                this.implementor_.receiveBufferSize = value;
             }
         }
 
@@ -153,6 +173,7 @@ namespace spaghetti.net {
         /// </summary>
         public bool reuseAddress {
             get {
+                return this.implementor_.reuseAddress;
             }
         }
 
@@ -162,6 +183,7 @@ namespace spaghetti.net {
         /// </summary>
         public IPEndPoint remoteEndPoint {
             get {
+                return this.implementor_.remoteEndPoint;
             }
         }
 
@@ -171,6 +193,7 @@ namespace spaghetti.net {
         /// </summary>
         public int sendBufferSize {
             get {
+                return this.implementor_.sendBufferSize;
             }
         }
 
@@ -180,8 +203,10 @@ namespace spaghetti.net {
         /// </summary>
         public int timeout {
             get {
+                return this.implementor_.timeout;
             }
             set {
+                this.implementor_.timeout = value;
             }
         }
 
@@ -192,8 +217,10 @@ namespace spaghetti.net {
         /// </summary>
         public int trafficClass {
             get {
+                return this.implementor_.trafficClass;
             }
             set {
+                this.implementor_.trafficClass = value;
             }
         }
 
@@ -203,7 +230,7 @@ namespace spaghetti.net {
         /// </summary>
         public bool isBound {
             get {
-
+                return this.implementor_.isBound;
             }
         }
 
@@ -213,7 +240,7 @@ namespace spaghetti.net {
         /// </summary>
         public bool isClosed {
             get {
-
+                return this.implementor_.isClosed;
             }
         }
 
@@ -223,6 +250,7 @@ namespace spaghetti.net {
         /// </summary>
         public bool isConnected {
             get {
+                return this.implementor_.isConnected;
             }
         }
 
@@ -232,6 +260,7 @@ namespace spaghetti.net {
         /// </summary>
         /// <param name="packet"></param>
         public void receive(DatagramPacket packet) {
+            this.implementor_.receive( packet );
         }
 
 
@@ -240,29 +269,23 @@ namespace spaghetti.net {
         /// </summary>
         /// <param name="packet"></param>
         public void send(DatagramPacket packet) {
+            this.implementor_.send( packet );
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="factory"></param>
-        public static void setDatagramSocketImplFactory(DatagramSocketImplFactory factory) {
+        /// <param name="new_factory"></param>
+        public static void setDatagramSocketImplFactory(DatagramSocketImplFactory new_factory) {
+            factory = new_factory;
         }
-
-
+        
+        
         /// <summary>
         /// 
         /// </summary>
-        private Socket socket_;
-        /// <summary>
-        /// 閉じられているかどうか。
-        /// </summary>
-        private bool is_closed_;
-        /// <summary>
-        /// 接続しているかどうか。
-        /// </summary>
-        private bool is_connected_;
+        private DatagramSocketImpl implementor_ = null;
 
 
         /// <summary>

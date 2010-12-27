@@ -41,6 +41,7 @@ namespace spaghetti.extraio.channels {
         /// </summary>
         public bool isConnected {
             get {
+                return is_connected_;
             }
         }
 
@@ -50,7 +51,8 @@ namespace spaghetti.extraio.channels {
         /// </summary>
         /// <returns></returns>
         static public DatagramChannel open() {
-            return new DatagramChannel(new SelectorProvider());
+            //return new DatagramChannel( new SelectorProvider() );
+            return null;
         }
 
 
@@ -92,6 +94,7 @@ namespace spaghetti.extraio.channels {
         /// </summary>
         public int validOptions {
             get {
+                return SelectionKey.OP_READ | SelectionKey.OP_WRITE;
             }
         }
 
@@ -110,6 +113,12 @@ namespace spaghetti.extraio.channels {
         /// <param name="length"></param>
         /// <returns></returns>
         public abstract int write(byte[] src, int offset, int length);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool is_connected_;
     }
 
 

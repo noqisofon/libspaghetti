@@ -36,8 +36,13 @@
   <ItemGroup>
     <Compile Include="extraio\channels\DatagramChannel.cs" />
     <Compile Include="extraio\channels\providers\SelectorProvider.cs" />
+    <Compile Include="extraio\channels\SelectionKey.cs" />
+    <Compile Include="io\FileDescriptor.cs" />
     <Compile Include="net\DatagramPacket.cs" />
     <Compile Include="net\DatagramSocket.cs" />
+    <Compile Include="net\DatagramSocketImpl.cs" />
+    <Compile Include="net\DatagramSocketImplFactory.cs" />
+    <Compile Include="net\InnerDatagramSocket.cs" />
     <Compile Include="net\MulticastSocket.cs" />
     <Compile Include="parsers\DocumentBuilder.cs" />
     <Compile Include="parsers\DocumentBuilderFactory.cs" />
@@ -46,6 +51,8 @@
     <Compile Include="parsers\XmlDocumentParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="util\Base64.cs" />
+    <Compile Include="util\interop\Handles.cs" />
+    <Compile Include="util\interop\STANDARD_HANEDLES.cs" />
     <Compile Include="util\Logger.cs" />
     <Compile Include="util\pair.cs" />
     <Compile Include="util\XMLDocumentConvertor.cs" />
