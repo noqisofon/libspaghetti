@@ -13,6 +13,24 @@ namespace spaghetti.net {
         /// <summary>
         /// 
         /// </summary>
+        internal InnerDatagramSocket(AddressFamily family, ProtocolType protocol) {
+            this.socket_ = new Socket( family, SocketType.Dgram, protocol );
+            this.local_point_ = null;
+            this.remote_point_ = null;
+            this.is_closed_ = false;
+            this.is_bound_ = false;
+            this.is_connected_ = false;
+            this.resuse_socket_ = false;
+            this.timeout_ = 3;
+            this.traffic_class_ = 0;
+            this.broadband_ = false;
+            this.flags_ = SocketFlags.None;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="local_point"></param>
         internal override void bind(IPEndPoint local_point) {
             this.socket_.Bind( local_point );

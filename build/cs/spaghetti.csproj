@@ -43,6 +43,7 @@
     <Compile Include="net\DatagramSocketImpl.cs" />
     <Compile Include="net\DatagramSocketImplFactory.cs" />
     <Compile Include="net\InnerDatagramSocket.cs" />
+    <Compile Include="net\InnerDatagramSocketImplFactory.cs" />
     <Compile Include="net\MulticastSocket.cs" />
     <Compile Include="parsers\DocumentBuilder.cs" />
     <Compile Include="parsers\DocumentBuilderFactory.cs" />

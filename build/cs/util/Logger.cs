@@ -26,7 +26,7 @@ namespace spaghetti.util {
         public void log(string text) {
             using ( FileStream stream = this.logfile_.Open( FileMode.Append, FileAccess.Write, FileShare.ReadWrite ) ) {
 
-                using ( StreamWriter writer = new StreamWriter( stream ) ) {
+                using ( StreamWriter writer = new StreamWriter( stream, Encoding.UTF8 ) ) {
                     writer.WriteLine( "{0:o} {1}", DateTime.Now, text );
                 }
             }
@@ -57,20 +57,27 @@ namespace spaghetti.util {
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static Logger getLogger() {
+            return getLogger( "stdout.txt" );
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
         public static Logger getLogger(string filename) {
             Logger result_logger = null;
 
-            if ( logger_pool.ContainsKey( filename ) )
-                result_logger = logger_pool[filename];
+            if ( loggerPool.ContainsKey( filename ) )
+                result_logger = loggerPool[filename];
             else {
                 result_logger = new Logger( filename );
 
-                logger_pool.Add( filename, result_logger );
+                loggerPool.Add( filename, result_logger );
             }
             return result_logger;
-
         }
 
 
@@ -78,10 +85,12 @@ namespace spaghetti.util {
         /// 
         /// </summary>
         private FileInfo logfile_;
+       
+        
         /// <summary>
         /// 
         /// </summary>
-        private static Dictionary<string, Logger> logger_pool = new Dictionary<string, Logger>();
+        private static Dictionary<string, Logger> loggerPool = new Dictionary<string, Logger>();
     }
 
 

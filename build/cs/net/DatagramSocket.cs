@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Net;
 using System.Net.Sockets;
 
@@ -6,36 +6,41 @@ using System.Net.Sockets;
 namespace spaghetti.net {
 
 
-    using extraio.channels;
+    using spaghetti.extraio.channels;
 
 
     /// <summary>
-    /// ƒf[ƒ^ƒOƒ‰ƒ€ƒpƒPƒbƒg‚ğ‘—óM‚·‚é‚½‚ß‚Ìƒ\ƒPƒbƒg‚ğ•\‚µ‚Ü‚·B
+    /// ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ãƒ‘ã‚±ãƒƒãƒˆã‚’é€å—ä¿¡ã™ã‚‹ãŸã‚ã®ã‚½ã‚±ãƒƒãƒˆã‚’è¡¨ã—ã¾ã™ã€‚
     /// </summary>
     public class DatagramSocket {
         /// <summary>
-        /// ƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğ\’z‚µAƒ[ƒJƒ‹ƒ}ƒVƒ“ã‚Ìg—p‰Â”\‚Èƒ|[ƒg‚ÉƒoƒCƒ“ƒh‚µ‚Ü‚·B
+        /// ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’æ§‹ç¯‰ã—ã€ãƒ­ãƒ¼ã‚«ãƒ«ãƒã‚·ãƒ³ä¸Šã®ä½¿ç”¨å¯èƒ½ãªãƒãƒ¼ãƒˆã«ãƒã‚¤ãƒ³ãƒ‰ã—ã¾ã™ã€‚
         /// </summary>
-        public DatagramSocket() {
+        public DatagramSocket()
+            : this( factory.createDatagramSocketImpl() ) {
         }
         /// <summary>
-        /// w’è‚³‚ê‚½ DatagramSocketImpl ‚ğg—p‚µ‚ÄƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚È‚¢ƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğì¬‚µ‚Ü‚·B
+        /// æŒ‡å®šã•ã‚ŒãŸ DatagramSocketImpl ã‚’ä½¿ç”¨ã—ã¦ãƒã‚¤ãƒ³ãƒ‰ã•ã‚Œã¦ã„ãªã„ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="implementor"></param>
         protected DatagramSocket(DatagramSocketImpl implementor) {
+            this.implementor_ = implementor;
         }
         /// <summary>
-        /// w’è‚³‚ê‚½ƒ[ƒJƒ‹ƒAƒhƒŒƒX‚ÉƒoƒCƒ“ƒh‚³‚ê‚½ƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğì¬‚µ‚Ü‚·B
+        /// æŒ‡å®šã•ã‚ŒãŸãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã«ãƒã‚¤ãƒ³ãƒ‰ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="port"></param>
-        /// <param name="address"></param>
-        public DatagramSocket(int port, IPAddress address) {
+        /// <param name="loal_port"></param>
+        /// <param name="local_address"></param>
+        public DatagramSocket(int loal_port, IPAddress local_address)
+            : this( new IPEndPoint( local_address, loal_port ) ) {
         }
         /// <summary>
-        /// w’è‚³‚ê‚½ƒ[ƒJƒ‹ƒAƒhƒŒƒX‚ÉƒoƒCƒ“ƒh‚³‚ê‚½ƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğì¬‚µ‚Ü‚·B
+        /// æŒ‡å®šã•ã‚ŒãŸãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã«ãƒã‚¤ãƒ³ãƒ‰ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
         /// </summary>
-        /// <param name="point"></param>
-        public DatagramSocket(IPEndPoint point) {
+        /// <param name="local_point"></param>
+        public DatagramSocket(IPEndPoint local_point)
+            : this( factory.createDatagramSocketImpl() ) {
+            this.implementor_.bind( local_point );
         }
 
 
@@ -47,7 +52,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğ“Á’è‚ÌƒAƒhƒŒƒXA‚¨‚æ‚Ñƒ|[ƒg‚ÉƒoƒCƒ“ƒh‚µ‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’ç‰¹å®šã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã€ãŠã‚ˆã³ãƒãƒ¼ãƒˆã«ãƒã‚¤ãƒ³ãƒ‰ã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="point"></param>
         public void bind(IPEndPoint point) {
@@ -56,7 +61,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ_ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ğ•Â‚¶‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ãƒ€ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‚’é–‰ã˜ã¾ã™ã€‚
         /// </summary>
         public void close() {
             this.implementor_.close();
@@ -64,7 +69,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ğ‚±‚Ìƒ\ƒPƒbƒg‚ÌƒŠƒ‚[ƒgƒAƒhƒŒƒX‚ÉÚ‘±‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆã‚’ã“ã®ã‚½ã‚±ãƒƒãƒˆã®ãƒªãƒ¢ãƒ¼ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã«æ¥ç¶šã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="address"></param>
         /// <param name="port"></param>
@@ -72,7 +77,7 @@ namespace spaghetti.net {
             this.implementor_.connect( address, port );
         }
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚ğƒŠƒ‚[ƒgƒ\ƒPƒbƒgƒAƒhƒŒƒX‚ÉÚ‘±‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆã‚’ãƒªãƒ¢ãƒ¼ãƒˆã‚½ã‚±ãƒƒãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã«æ¥ç¶šã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="point"></param>
         public void connect(IPEndPoint point) {
@@ -81,7 +86,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ğØ’f‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆã‚’åˆ‡æ–­ã—ã¾ã™ã€‚
         /// </summary>
         public void disconnect() {
             this.implementor_.disconnect();
@@ -89,7 +94,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒuƒ[ƒhƒoƒ“ƒhƒtƒ‰ƒO‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ãƒ–ãƒ­ãƒ¼ãƒ‰ãƒãƒ³ãƒ‰ãƒ•ãƒ©ã‚°ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public bool broadband {
             get {
@@ -102,9 +107,9 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚ÉŠÖ˜A‚·‚éŒÅ—L‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ`ƒƒƒ“ƒlƒ‹ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚µ‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã«é–¢é€£ã™ã‚‹å›ºæœ‰ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ãƒãƒ£ãƒ³ãƒãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
-        /// <remarks>‘¶İ‚µ‚È‚¢ê‡Anull ‚ğ•Ô‚µ‚Ü‚·B</remarks>
+        /// <remarks>å­˜åœ¨ã—ãªã„å ´åˆã€null ã‚’è¿”ã—ã¾ã™ã€‚</remarks>
         public DatagramChannel channel {
             get {
                 return null;
@@ -113,7 +118,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚ÌÚ‘±æ‚ÌƒAƒhƒŒƒX‚ğ•Ô‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆã®æ¥ç¶šå…ˆã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public IPAddress remoteAddress {
             get {
@@ -123,7 +128,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ÌƒoƒCƒ“ƒhæ‚Ìƒ[ƒJƒ‹ƒAƒhƒŒƒX‚ğæ“¾‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆã®ãƒã‚¤ãƒ³ãƒ‰å…ˆã®ãƒ­ãƒ¼ã‚«ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã—ã¾ã™ã€‚
         /// </summary>
         public IPAddress localAddress {
             get {
@@ -133,7 +138,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚ªƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚éƒGƒ“ƒhƒ|ƒCƒ“ƒg‚ğ•Ô‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆãŒãƒã‚¤ãƒ³ãƒ‰ã•ã‚Œã¦ã„ã‚‹ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public IPEndPoint localEndPoint {
             get {
@@ -143,7 +148,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚Ì‚½‚ß‚Ìƒ|[ƒg”Ô†‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆã®ãŸã‚ã®ãƒãƒ¼ãƒˆç•ªå·ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public int port {
             get {
@@ -156,7 +161,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚Åg‚í‚ê‚éóM—pƒoƒbƒtƒ@‚Ì’·‚³‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã§ä½¿ã‚ã‚Œã‚‹å—ä¿¡ç”¨ãƒãƒƒãƒ•ã‚¡ã®é•·ã•ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public int receiveBufferSize {
             get {
@@ -169,7 +174,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// SO_REUSEADDR ‚ª—LŒø‚©‚Ç‚¤‚©‚ğ’²‚×‚Ü‚·B
+        /// SO_REUSEADDR ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã‚’èª¿ã¹ã¾ã™ã€‚
         /// </summary>
         public bool reuseAddress {
             get {
@@ -179,7 +184,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚ªÚ‘±‚³‚ê‚Ä‚¢‚éæ‚ÌƒGƒ“ƒhƒ|ƒCƒ“ƒg‚ğ•Ô‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆãŒæ¥ç¶šã•ã‚Œã¦ã„ã‚‹å…ˆã®ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public IPEndPoint remoteEndPoint {
             get {
@@ -189,7 +194,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚Åg‚í‚ê‚é‘—M—pƒoƒbƒtƒ@‚Ì’·‚³‚ğƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã§ä½¿ã‚ã‚Œã‚‹é€ä¿¡ç”¨ãƒãƒƒãƒ•ã‚¡ã®é•·ã•ã‚’ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public int sendBufferSize {
             get {
@@ -199,7 +204,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ^ƒCƒ€ƒAƒEƒg’l‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆå€¤ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public int timeout {
             get {
@@ -212,8 +217,8 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒ\ƒPƒbƒg‚©‚ç‘—M‚³‚ê‚éƒpƒPƒbƒg‚Ì IP ƒf[ƒ^ƒOƒ‰ƒ€ƒwƒbƒ_[‚Ìƒgƒ‰ƒtƒBƒbƒNƒNƒ‰ƒX
-        /// ‚Ü‚½‚ÍƒT[ƒrƒXŒ^‚ÉƒAƒNƒZƒX‚µ‚Ü‚·B
+        /// ã“ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ã‚½ã‚±ãƒƒãƒˆã‹ã‚‰é€ä¿¡ã•ã‚Œã‚‹ãƒ‘ã‚±ãƒƒãƒˆã® IP ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ãƒ˜ãƒƒãƒ€ãƒ¼ã®ãƒˆãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¯ãƒ©ã‚¹
+        /// ã¾ãŸã¯ã‚µãƒ¼ãƒ“ã‚¹å‹ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¾ã™ã€‚
         /// </summary>
         public int trafficClass {
             get {
@@ -226,7 +231,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ªƒoƒCƒ“ƒh‚³‚ê‚Ä‚¢‚½‚ç^‚ğ•Ô‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆãŒãƒã‚¤ãƒ³ãƒ‰ã•ã‚Œã¦ã„ãŸã‚‰çœŸã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public bool isBound {
             get {
@@ -236,7 +241,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ª•Â‚¶‚ç‚ê‚Ä‚¢‚ê‚Î^‚ğ•Ô‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆãŒé–‰ã˜ã‚‰ã‚Œã¦ã„ã‚Œã°çœŸã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public bool isClosed {
             get {
@@ -246,7 +251,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ƒ\ƒPƒbƒg‚ª‰½‚ê‚©‚ÌƒGƒ“ƒhƒ|ƒCƒ“ƒg‚ÉÚ‘±‚³‚ê‚Ä‚¢‚ê‚Î^‚ğ•Ô‚µ‚Ü‚·B
+        /// ã‚½ã‚±ãƒƒãƒˆãŒä½•ã‚Œã‹ã®ã‚¨ãƒ³ãƒ‰ãƒã‚¤ãƒ³ãƒˆã«æ¥ç¶šã•ã‚Œã¦ã„ã‚Œã°çœŸã‚’è¿”ã—ã¾ã™ã€‚
         /// </summary>
         public bool isConnected {
             get {
@@ -256,7 +261,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚©‚ç‚Ìƒf[ƒ^ƒOƒ‰ƒ€ƒpƒPƒbƒg‚ğóM‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆã‹ã‚‰ã®ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ãƒ‘ã‚±ãƒƒãƒˆã‚’å—ä¿¡ã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="packet"></param>
         public void receive(DatagramPacket packet) {
@@ -265,7 +270,7 @@ namespace spaghetti.net {
 
 
         /// <summary>
-        /// ‚±‚Ìƒ\ƒPƒbƒg‚©‚çƒf[ƒ^ƒOƒ‰ƒ€ƒpƒPƒbƒg‚ğ‘—M‚µ‚Ü‚·B
+        /// ã“ã®ã‚½ã‚±ãƒƒãƒˆã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚°ãƒ©ãƒ ãƒ‘ã‚±ãƒƒãƒˆã‚’é€ä¿¡ã—ã¾ã™ã€‚
         /// </summary>
         /// <param name="packet"></param>
         public void send(DatagramPacket packet) {
@@ -280,8 +285,8 @@ namespace spaghetti.net {
         public static void setDatagramSocketImplFactory(DatagramSocketImplFactory new_factory) {
             factory = new_factory;
         }
-        
-        
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -291,7 +296,7 @@ namespace spaghetti.net {
         /// <summary>
         /// 
         /// </summary>
-        private static DatagramSocketImplFactory factory;
+        private static DatagramSocketImplFactory factory = new InnerDatagramSocketImplFactory();
     }
 
 
